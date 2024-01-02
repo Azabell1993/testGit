@@ -1,0 +1,30 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add any head styles or scripts you need -->
+</head>
+<body class="is-preload">
+    <div id="main">
+        <div class="inner">
+            <div>
+                <div class="content" id="dynamicContent">
+                    <!-- 동적으로 변경될 내용이 표시될 영역 -->
+                    <th:block th:replace="thymeleaf/main/list.html :: indexFragment"></th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar">
+        <div class="inner">
+            <th:block th:replace="thymeleaf/fragments/menu.html :: menuFragment"></th:block>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="footer">
+            <th:block th:replace="thymeleaf/fragments/footer.html :: footerFragment"></th:block>
+        </div>
+    </div>
+</body>
+</html>

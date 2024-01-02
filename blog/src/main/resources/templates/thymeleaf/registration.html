@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${site_title}">회원가입</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F4B400;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .registration-container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #4285F4;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="submit"]:focus {
+            outline: none;
+            border-color: #4285F4;
+        }
+
+        select {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .signup-button {
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #4285F4;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h1>회원가입</h1>
+        <form th:action="@{/registration}" method="post" onsubmit="return validatePassword()">
+
+            <input type="text" id="nickname" name="nickname" placeholder="Nickname"/>
+            <input type="text" id="username" name="username" placeholder="Login ID"/>
+            <input type="password" id="password" name="password" placeholder="Login Password" onblur="chkPW()"/>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Login Password Check" onblur="chkPW()"/>
+            <div id="passwordError" class="error-message"></div>
+            <input type="text" id="emailLocalPart" name="emailLocalPart" placeholder="Email ID" />
+            <select id="emailDomain" name="emailDomain" onchange="checkCustomDomain()">
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="yahoo.com">yahoo.com</option>
+                <option value="kakao.com">kakao.com</option>
+                <option value="custom">직접 입력</option>
+                <!-- 다른 이메일 도메인 옵션 추가 -->
+            </select>
+            <input type="text" id="customEmailDomainInput" name="customEmailDomain" placeholder="직접 도메인 입력" style="display: none;" />
+
+            <div id="inputError" class="error-message"></div>
+
+            <input type="submit" value="가입하기"/>
+            <div class="error-message" id="passwordError"></div>
+        </form>
+        <div style="text-align: center; margin-top: 20px;">
+            <a th:href="@{/}" class="signup-button">뒤로 가기</a>
+        </div>
+    </div>
+</body>
+<script>
+    function closeRegistration() {
+        window.close();
+    }
+
+    function chkPW() {
+        var pw = document.getElementById("password").value;
+        var pwchk = document.getElementById("confirmPassword").value;
+        var num = pw.match(/[0-9]/g);
+        var eng = pw.match(/[a-zA-Z]/g);
+        var spe = pw.match(/[`~!@#$%^&*|₩₩₩'₩";:₩/?]/g);
+        var errorDiv = document.getElementById("passwordError");
+
+        if (pw.length < 10 || pw.length > 20) {
+            errorDiv.textContent = "비밀번호는 10자리에서 20자리 사이로 입력해주세요.";
+        } else if (pw !== pwchk) {
+            errorDiv.textContent = "비밀번호가 일치하지 않습니다.";
+        } else if (pw.includes(" ")) {
+            errorDiv.textContent = "비밀번호에 공백을 포함할 수 없습니다.";
+        } else if ((num === null || eng === null) || spe === null) {
+            errorDiv.textContent = "비밀번호는 영문, 숫자, 또는 특수문자 중 2가지 이상을 혼합하여 입력해주세요.";
+        } else {
+            errorDiv.textContent = "";
+            return true;
+        }
+        return false;
+    }
+
+    function checkCustomDomain() {
+        var emailDomainSelect = document.getElementById("emailDomain");
+        var customEmailDomainInput = document.getElementById("customEmailDomainInput");
+
+        if (emailDomainSelect.value === "custom") {
+            customEmailDomainInput.style.display = "block";
+        } else {
+            customEmailDomainInput.style.display = "none";
+        }
+    }
+
+    function validatePassword() {
+        passwordError.textContent = "";
+        alert("회원가입이 성공적으로 이루어졌습니다.");
+        return true;
+    }
+
+</script>
+
+</html>

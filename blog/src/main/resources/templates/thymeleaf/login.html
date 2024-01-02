@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${site_title}">Default Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F4B400; /* 변경된 배경색 */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .login-container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #4285F4; /* Google 로고 색상 */
+        }
+
+        form {
+            display: flex;
+            margin: 5px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="submit"]:focus {
+            outline: none;
+            border-color: #4285F4; /* Google 로고 색상 */
+        }
+
+        .error-message {
+            color: #FF0000;
+            margin-top: 10px;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes wiggle {
+            0% { transform: rotate(0); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+            100% { transform: rotate(0); }
+        }
+
+        .animate {
+            animation: wiggle 1s infinite;
+        }
+
+        .animate-once {
+            animation: wiggle 1s;
+        }
+
+        .animate-two {
+            animation: wiggle 3s;
+        }
+
+        /* 추가 스타일 */
+        #logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4em;
+            font-weight: bold;
+            color: #FFFFFF; /* 대비되는 색상으로 변경 */
+        }
+
+        .animated-text {
+            animation: moveIn 3s infinite;
+        }
+
+        /* 에니메이션 수정 - J부터 나타나고 위에서 아래로 이동 */
+        @keyframes moveIn {
+            0% { transform: translateY(-10px); opacity: 0; }
+            50% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* 회원가입 버튼 스타일 */
+        .signup-button {
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #4285F4;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="animate-two">
+        <div id="logo-container">
+            <div class="animated-text">JW BLOG</div>
+        </div>
+
+        <div class="login-container"> <!-- 하얀색 박스로 감싸기 -->
+            <form th:action="@{/login}" method="post" onsubmit="return checkPassword()">
+                <!-- <input type="text" id="username" name="username" th:value="${username}" placeholder="ID"/>
+                <input type="password" id="password" name="password" th:value="${password}" placeholder="PASSWORD"/> -->
+                <input type="text" name="username" placeholder="사용자 아이디"/>
+                <input type="password" name="password" placeholder="비밀번호"/>
+                <div th:if="${loginError}" class="error-message animate">아이디 혹은 비밀번호가 맞지 않습니다. 다시 입력해주세요.</div>
+                <input type="submit" value="Log in"/>
+            </form>
+                <!-- 회원가입 버튼을 추가하고 새 창으로 열기 -->
+                <div style="text-align: center; margin-top: 20px;">
+                <a th:href="@{/registration}" class="signup-button">회원가입</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

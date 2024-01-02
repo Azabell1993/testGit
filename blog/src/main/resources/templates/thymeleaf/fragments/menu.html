@@ -1,0 +1,119 @@
+<!-- menuFragment.html -->
+<div th:fragment="menuFragment">
+  <style>
+    /* 메뉴 스타일 */
+    #menu-container {
+      position: fixed; /* 항상 화면 위에 고정되도록 설정 */
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+    }
+
+    #menu-button {
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #user-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    #user-info span {
+      color: #6c6969;
+      font-weight: bold;
+    }
+
+    #user-info-message {
+      margin-left: 5px;
+      font-size: 12px;
+      padding: 0px 10px;
+    }
+
+    #logout-button {
+      font-size: 12px;
+      padding: 8px 15px; /* 간격 조정 */
+      color: #a28080;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    #logout-button:hover {
+      background-color: #ff5c91;
+      color: white;
+    }
+
+    #menu-list {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    .menu-item {
+      margin-right: 20px;
+    }
+
+    .menu-link {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .menu-link:hover {
+      color: #ff5c91;
+    }
+
+    /* 메뉴 아이템을 수평 중앙 정렬 */
+    #menu-list {
+      display: flex;
+      align-items: center;
+    }
+
+    /* 각 메뉴 아이템에 대한 스타일 조정 */
+    .menu-item {
+      margin-right: 20px;
+    }
+  </style>
+
+  <div id="menu-container">
+    <div id="menu-button"><i class="fas fa-bars"></i></div>
+
+    <ul id="menu-list">
+      <li class="menu-item"><a th:href="@{/}" class="menu-link">홈</a></li>
+      <!-- Add other menu items as needed -->
+    </ul>
+
+    <div id="user-info">
+      <form th:action="@{/logout}" method="post">
+        <span th:text="${#httpServletRequest.remoteUser}"></span>
+        <span id="user-info-message">님 안녕하세요.</span>
+        <input type="submit" id="logout-button" value="로그아웃">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var menuList = document.getElementById('menu-list');
+      menuList.style.display = 'flex';
+
+      document.getElementById('menu-button').addEventListener('click', function () {
+        menuList.style.display = (menuList.style.display === 'none' || menuList.style.display === '') ? 'flex' : 'none';
+      });
+    });
+  </script>
+</div>

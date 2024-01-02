@@ -1,0 +1,112 @@
+<!--footerFragment 선언-->
+<div th:fragment="indexFragment">
+    <style>
+      body {
+        margin: 0;
+        font-family: 'jwstyle', sans-serif;
+        background: linear-gradient(to right, #3498db, #2ecc71);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      #banner {
+        background-color: #ffd6e8;
+        padding: 50px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1, h3 {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 3em;
+        color: #ff5c91;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        color: #ff5c91;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input {
+        border: 2px solid #ff5c91;
+        border-radius: 10px;
+        padding: 10px;
+        font-family: 'jwstyle', sans-serif;
+        margin-bottom: 10px;
+      }
+
+      span {
+        font-size: 1.5em;
+        color: #ff5c91;
+        margin: 0 10px;
+      }
+
+      .mybutton {
+        background-color: #ff5c91;
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        padding: 15px;
+        font-family: 'jwstyle', sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .mybutton:hover {
+        background-color: #ff3d77;
+      }
+
+      #textcontent {
+        font-size: 1.2em;
+        color: #ff5c91;
+        margin-top: 20px;
+      }
+    </style>
+
+    <section id="banner">
+      <div class="content">
+        <header>
+          <h1>준비중인 블로그입니다</h1>
+        </br>
+          <h3>.wasm Binary File 연동 TestSpace</h3>
+          <h3>C언어 Function Test</h3>
+        </header>
+        <ul class="actions">
+          <li>
+            <input type="number" size="20" id="numA">
+            <span>+</span>
+            <input type="number" size="20" id="numB">
+            <button class="mybutton" onclick="calculate()">ADD</button>
+            <p id="textcontent">먼저 'ADD'버튼을 눌러주세요. 이곳에 결과가 나타납니다.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <script>
+      function calculate() {
+        var numA = parseFloat(document.getElementById("numA").value);
+        var numB = parseFloat(document.getElementById("numB").value);
+        var result = numA + numB;
+        document.getElementById("textcontent").innerHTML = "결과: <span style='color: #ff5c91;'>" + result + "</span>";
+      }
+    </script>
+  </div>
